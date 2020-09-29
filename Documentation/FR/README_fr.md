@@ -44,12 +44,34 @@ Vous pourrez alors y accéder dans le répertoire `/usr/share/doc/libcsfml-doc/i
 
 Il existe d'autre moyens de l'installer, qui permettraient notamment d'utilier les versions les plus récentes. Veillez noter que, bien qu'il ne devrait pas y avoir de problèmes, seule la version 2.4.2 a été testée lors du dévelopement de ce paquet. Pour plus d'informations, rendez-vous sur [le site de SFML](https://www.sfml-dev.org/tutorials/2.5/start-linux-fr.php) (les guides sont pour la version C++) et [la page de CSFML](https://www.sfml-dev.org/download/csfml/) pour les sources. Ce guide assume que vous utilisez l'option ligne de commande.
 
-La suite consiste à installer le fichier *libcsfml-dev.pc* présent à la racine du paquet afin de rendre disponible au *Swift Package Manager* les fichiers d'en-têtes et de librairies de CSFML. Pour ce faire, déplacez-le ou copiez-le dans un des répertoires standards de l'utilitaire `pkg-config`, comme `/usr/lib/pkgconfig`.
+La suite consiste à installer le fichier `libcsfml-dev.pc` présent dans le répertoire `Pkgconfig/Linux` afin de rendre disponible au *Swift Package Manager* les fichiers d'en-têtes et de librairies de CSFML. Pour ce faire,  copiez-le dans un des répertoires standards de l'utilitaire `pkg-config`, comme `/usr/lib/pkgconfig`.
 
-Pour finir, il ne reste plus qu'a définir le paquet `CSFML` comme dépendance à votre project, ajouter `import CSFML` dans vos fichers Swift et voilà! 
+Pour finir, il ne reste plus qu'a définir le paquet `CSFML` comme dépendance à votre projet pu paquet, ajouter `import CSFML` dans vos fichers Swift et voilà! 
 
-### MacOS
-***TODO***
+### macOS
+Le moyen le plus simple d'installer CSFML sur macOS est d'utiliser [Brew](https://brew.sh/index_fr):
+```
+    brew install csfml
+```
+
+Vous pourrez ensuite installer le fichier `libcsfml-dev.pc` présent dans le répertoire `Pkgconfig/Mac` afin de rendre disponible au *Swift Package Manager* les fichiers d'en-têtes et de librairies de CSFML. Pour ce faire, copiez-le dans un des répertoires standards de l'utilitaire `pkg-config`, comme `/usr/local/lib/pkgconfig`.
+
+Pour finir, il ne reste plus qu'a définir le paquet `CSFML` comme dépendance à votre projet pu paquet, ajouter `import CSFML` dans vos fichers Swift et voilà! 
+
+#### À propos de Xcode
+Il se peut que lorsque vous essayiez de compiler votre paquet sur Xcode qu'il ne trouve pas certains fichiers d'en-tête, même si la compilation par ligne de commande fonctionne. Heureusement, il est assez simple de remédier à ce problème:
+
+1. Fermez Xcode et ouvrez un terminal dans le dossier racine de votre paquet.
+2. Entrez la commande suivante: `swift package generate-xcodeproj`. Cette commande va créer un fichier de projet Xcode.
+3. Ouvrez le projet Xcode.
+4. Ouvrez les "Build Settings" du projet, en prenant soin de sélectionner le projet dans la marge gauche.
+5. Recherchez "Header Search Paths"
+6. Entrez comme valeur le chemin des en-têtes de CSFML. Si vous avez installé CSFML dans le répertoire par défaut (avec Brew par exemple), entrez `/usr/local/include/**`.
+
+> L'attribut `/**` indique un chemin récursif, c'est à dire qu'il inclu aussi les sous-dossiers.
+
+Vous devriez maintenant être en mesure de compiler.
+
 ### Windows
 ***TODO***
 
