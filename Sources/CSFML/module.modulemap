@@ -1,9 +1,5 @@
 module CSFML [system] {
-  header "/usr/include/SFML/System.h"
-  header "/usr/include/SFML/Graphics.h"
-  header "/usr/include/SFML/Window.h"
-  header "/usr/include/SFML/Audio.h"
-  header "/usr/include/SFML/Network.h"
+  header "headers.h"
 
   export *
 }
